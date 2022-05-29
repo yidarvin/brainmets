@@ -6,7 +6,7 @@ services:
     volumes:
       - /home/darvin/nas/brainmets/:/home/bmcv/brainmets
       - /home/darvin/nas/data/:/home/bmcv/data_nas
-      - /data:/home/bmcv/data_scratch
+      - /home/darvin/Data:/home/bmcv/data_scratch
     network_mode: host
     stdin_open: true
     tty: true
