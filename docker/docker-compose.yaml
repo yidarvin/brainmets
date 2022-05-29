@@ -1,0 +1,20 @@
+version: "3"
+
+services:
+  brainmets:
+    build: .
+    volumes:
+      - /home/darvin/nas/brainmets/:/home/bmcv/brainmets
+      - /home/darvin/nas/data/:/home/bmcv/data_nas
+      - /data:/home/bmcv/data_scratch
+    network_mode: host
+    stdin_open: true
+    tty: true
+    shm_size: '64gb'
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: 'nvidia'
+              count: all
+              capabilities: [gpu]
