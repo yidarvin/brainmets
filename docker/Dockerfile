@@ -4,6 +4,7 @@ FROM yidarvin/bmcv-base:latest
 RUN pip install tqdm
 RUN pip install nibabel
 RUN pip install pydicom
+RUN pip install fvcore omegaconf
 
 # Add Path
 ENV PATH="/home/bmcv/brainmets:${PATH}"

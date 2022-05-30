@@ -29,13 +29,21 @@ def fill_holes_volume(vol_bw):
 #    vol_new = normalize_volume(vol)
 #    return vol_new
 
-def preproc_volume(vol, imgsize=512):
+def preproc_volume(vol, imgsize=512, xys=None):
     vol = normalize_volume(vol)
-    thresh = threshold_otsu(vol)
-    vol_bw = vol > thresh
-    head = fill_holes_volume(vol_bw)
-    ys, xs, _ = np.where(head)
-    vol = vol[ys.min():(ys.max()+1), xs.min():(xs.max()+1)]
+    if xys is None:
+        thresh = threshold_otsu(vol)
+        vol_bw = vol > thresh
+        #vol_bw = fill_holes_volume(vol_bw)
+        ys, xs, _ = np.where(vol_bw)
+        ymin = ys.min()
+        ymax = ys.max() + 1
+        xmin = xs.min()
+        xmax = xs.max() + 1
+    else:
+        ymin,ymax,xmin,xmax = xys
+    vol = vol[ymin:ymax, xmin:xmax]
     vol = cv2.resize(vol, (imgsize,imgsize))
     vol = normalize_volume(vol)
-    return vol
+    return vol, (ymin,ymax,xmin,xmax)
+
